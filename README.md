@@ -1,2 +1,2 @@
-# CSC1002
-A Repository for CSC1002 (Practice &amp; Assignments)
+# 菜市场
+A Repository for CSC1001 & CSC1002 (Practice &amp; Assignments)
