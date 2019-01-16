@@ -53,3 +53,61 @@ secPerMin = 60
 _min, sec = divmod(time2, secPerMin)
 print(_min, ":", sec, sep="")
 print("End of example #7\n")
+
+# augmented assignment
+x1 = 22
+x1 += 7
+x1 -= 2 * 7
+print(x1)
+print("End of example #8\n")
+
+# Data type
+a1 = 100 + 200           # int
+a2 = "100" + "200"       # string
+print(a1, a2)
+type(a1)                 # check data type
+a1 += 1.23               # float
+type(a1)
+
+# the type can be changed
+y1 = "hello"
+y2 = 34
+type(y1), type(y2)
+y1 = y2 + 23
+y2 += 1.2
+type(y1), type(y2)
+
+# Type conversions
+a1 = 100
+type(a1)
+a1 = float(a1)
+type(a1)
+a1 = "100"
+a1 = int(a1)
+a1 += a1
+type(a1)
+print(a1)
+a1 = str(a1)
+type(a1)
+print("End of example #9\n")
+
+# User input
+a3 = input()
+a4 = input()
+print(type(a3), type(a4))     # the input func always inputs strings
+print(a3 + a4)
+a5 = int(input())
+print(type(a5))
+print("End of example #10\n")
+
+# String operations
+# "+": concatenation
+# "*": multiple concatenation
+a6 = "thieIsAString\n"
+a7 = "hahaha\n"
+a6 = a6 + a7
+a6 += a7
+print(a6)
+a7 = a7 * 3
+print(a7)
+print("End of example #11\n")
