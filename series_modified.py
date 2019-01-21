@@ -1,9 +1,8 @@
 while True:
     n = input("Which term to start with?\n>>>")
     if n.isdigit() and int(n) >= 0 and int(n) <= 1000000:
-        n = int(n)
+        n0 = n = int(n)
         break
-n0 = n
 
 n_thTerm = input("Please enter n-th term:\n>>>")
 while True:
@@ -32,13 +31,12 @@ for nMax in nMax_end:
         n = n + 1
     print("\nThe sum from ", n0, " to ", n-1, "-th term is:\n", _sum, "\n", sep="")
     if nMax < 1000000:
-        _continue = input("Enter to continue.\nType in anything else to stop the program\n>>>")
+        _continue = input("Enter to continue.\nType in anything else to stop the program.\n>>>")
         if bool(_continue) == True:
             print("Finished\n")
             break
 
 feedback = input("Is your problem solved?\n>>>")
-
 while feedback != "yes" and feedback != "no":
     print("Please enter \"yes\" or \"no\".\n", end="")
     feedback = input("Is your problem solved?\n>>>")
