@@ -111,3 +111,18 @@ print(a6)
 a7 = a7 * 3
 print(a7)
 print("End of example #11\n")
+
+# eval()
+# input a str, take it as a py expression
+_str = "34 + 7 * 4"
+print(_str)
+_int = eval(_str)
+print(_int)
+eval("print(\"Hello, world!\")")
+
+# x, y = float(input("please enter \"23, 34\"\n>>>"))
+# print(x, y)
+# why error?
+a, b = eval(input("please enter \"23, 34\"\n>>>"))
+print(a, b)
+print("End of example #12\n")
