@@ -7,8 +7,14 @@ same forwards and backwards.)
 USE IT FOR NOW!
 '''
 
-_str = input("Enter anything:\n>>>")
-_len = len(_str)
+while True:
+    _str = input("Enter anything:\n>>>")
+    _len = len(_str)
+    if _len > 1:
+        break
+    else:
+        print("It is too short to be a palindrome.\nPlease try again.\n")
+
 num = int(_len / 2)
 
 for i in range(0,1,num):
