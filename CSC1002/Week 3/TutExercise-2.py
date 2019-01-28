@@ -12,6 +12,9 @@ different message.
 def newLevel(title):
     print("\n>>> LEVEL " + title + " <<<\n")
 
+def judge(_num, _check):
+    return bool(_num % _check)
+
 newLevel("ONE")
 
 while True:
@@ -20,12 +23,10 @@ while True:
         n = int(n)
         break
 
-judge1 = bool(n % 2)
-
-if judge1:
+if judge(n, 2):
     print("It is an odd number.\n")
 else:
-    if n % 4 == 0:
+    if not judge(n, 4):
         print("It can be divided by 4.\n")
     else:
         print("It is an even number.\n")
@@ -40,9 +41,7 @@ while True:
         check = int(check)
         break
 
-judge2 = bool(num % check)
-
-if not judge2:
+if not judge(num, check):
     print("The check divides evenly into num.\n")
 else:
     print("The check can not divide evenly into num.\n")
