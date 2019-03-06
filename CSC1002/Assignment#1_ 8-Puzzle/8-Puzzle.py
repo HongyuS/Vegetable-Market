@@ -33,32 +33,6 @@ def random_board(p_board):                          # function to generate a new
     else:
         random_board(p_board)
 
-def operate(p_board, p_valid_direction, p_zero):    # function to move a number
-    while True:
-        direction = input('Input sliding direction (' + p_valid_direction + ') > ')
-        if (direction == LEFT and p_zero[1] == 2)or\
-            (direction == RIGHT and p_zero[1] == 0)or\
-            (direction == UP and p_zero[0] == 2)or\
-            (direction == DOWN and p_zero[0] == 0)or\
-            not (direction in [LEFT, RIGHT, UP, DOWN]):
-            print('Invalid move! Please try again!')
-        else:
-            if direction == LEFT:
-                p_board[p_zero[0]][p_zero[1]] = p_board[p_zero[0]][p_zero[1]+1]
-                p_board[p_zero[0]][p_zero[1]+1] = 0
-            elif direction == RIGHT:
-                p_board[p_zero[0]][p_zero[1]] = p_board[p_zero[0]][p_zero[1]-1]
-                p_board[p_zero[0]][p_zero[1]-1] = 0
-            elif direction == UP:
-                p_board[p_zero[0]][p_zero[1]] = p_board[p_zero[0]+1][p_zero[1]]
-                p_board[p_zero[0]+1][p_zero[1]] = 0
-            elif direction == DOWN:
-                p_board[p_zero[0]][p_zero[1]] = p_board[p_zero[0]-1][p_zero[1]]
-                p_board[p_zero[0]-1][p_zero[1]] = 0
-            print_board(p_board)
-            break
-    return p_board
-
 def find_zero(p_board):                             # function to find where the zero is
     for x in range(len(p_board)):
         for y in range(len(p_board[x])):
@@ -81,6 +55,32 @@ def judge_direction(p_zero):                        # function to judge valid di
         valid_direction += direction_list[i] + ', '
     valid_direction += direction_list[len(direction_list)-1]
     return valid_direction
+
+def operate(p_board, p_valid_direction, p_zero):    # function to move a number
+    while True:
+        direction = input('Input sliding direction (' + p_valid_direction + ') >')
+        if (direction == LEFT and p_zero[1] == 2)or\
+            (direction == RIGHT and p_zero[1] == 0)or\
+            (direction == UP and p_zero[0] == 2)or\
+            (direction == DOWN and p_zero[0] == 0)or\
+            not (direction in [LEFT, RIGHT, UP, DOWN]):
+            print('Invalid move! Please try again!')
+        else:
+            if direction == LEFT:
+                p_board[p_zero[0]][p_zero[1]] = p_board[p_zero[0]][p_zero[1]+1]
+                p_board[p_zero[0]][p_zero[1]+1] = 0
+            elif direction == RIGHT:
+                p_board[p_zero[0]][p_zero[1]] = p_board[p_zero[0]][p_zero[1]-1]
+                p_board[p_zero[0]][p_zero[1]-1] = 0
+            elif direction == UP:
+                p_board[p_zero[0]][p_zero[1]] = p_board[p_zero[0]+1][p_zero[1]]
+                p_board[p_zero[0]+1][p_zero[1]] = 0
+            elif direction == DOWN:
+                p_board[p_zero[0]][p_zero[1]] = p_board[p_zero[0]-1][p_zero[1]]
+                p_board[p_zero[0]-1][p_zero[1]] = 0
+            print_board(p_board)
+            break
+    return p_board
 
 def new_game():                                     # main game loop
     move = 0
