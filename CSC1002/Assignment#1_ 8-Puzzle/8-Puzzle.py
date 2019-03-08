@@ -22,14 +22,14 @@ def random_board(p_board):                          # function to generate a new
     inversion = 0
     for i in range(len(list1)):
         for j in range(i, len(list1)):
-            if list1[i] > list1[j] and\
-                list1[i] != 0 and\
-                list1[j] != 0:
+            if list1[i] > list1[j]\
+                and list1[i] != 0\
+                and list1[j] != 0:
                 inversion += 1
     if inversion % 2 == 0:                          # check solvability
         while list1 != []:                          # if total_inversion is odd:
             p_board.append(list1[:3])               #     the puzzle is unsolvable
-            list1 = list1[3:]                       # algorithm from internet
+            list1 = list1[3:]                       # ///algorithm from internet///
     else:
         random_board(p_board)
 
@@ -67,20 +67,19 @@ def operate(p_board, p_valid_direction, p_zero):    # function to move a number
             print('Invalid move! Please try again!')
         else:
             if direction == LEFT:
-                p_board[p_zero[0]][p_zero[1]] = p_board[p_zero[0]][p_zero[1]+1]
-                p_board[p_zero[0]][p_zero[1]+1] = 0
+                p_board[p_zero[0]][p_zero[1]], p_board[p_zero[0]][p_zero[1]+1]\
+                = p_board[p_zero[0]][p_zero[1]+1], 0
             elif direction == RIGHT:
-                p_board[p_zero[0]][p_zero[1]] = p_board[p_zero[0]][p_zero[1]-1]
-                p_board[p_zero[0]][p_zero[1]-1] = 0
+                p_board[p_zero[0]][p_zero[1]], p_board[p_zero[0]][p_zero[1]-1]\
+                = p_board[p_zero[0]][p_zero[1]-1], 0
             elif direction == UP:
-                p_board[p_zero[0]][p_zero[1]] = p_board[p_zero[0]+1][p_zero[1]]
-                p_board[p_zero[0]+1][p_zero[1]] = 0
+                p_board[p_zero[0]][p_zero[1]], p_board[p_zero[0]+1][p_zero[1]]\
+                = p_board[p_zero[0]+1][p_zero[1]], 0
             elif direction == DOWN:
-                p_board[p_zero[0]][p_zero[1]] = p_board[p_zero[0]-1][p_zero[1]]
-                p_board[p_zero[0]-1][p_zero[1]] = 0
+                p_board[p_zero[0]][p_zero[1]], p_board[p_zero[0]-1][p_zero[1]]\
+                = p_board[p_zero[0]-1][p_zero[1]], 0
             print_board(p_board)
             break
-    return p_board
 
 def new_game():                                     # main game loop
     move = 0
@@ -90,7 +89,7 @@ def new_game():                                     # main game loop
     while True:
         zero = find_zero(board)
         valid_direction = judge_direction(zero)
-        board = operate(board, valid_direction, zero)
+        operate(board, valid_direction, zero)
         move += 1
         if board == START_BOARD:
             print('Congratulations! You solved the puzzle in', move, 'moves!')
@@ -98,6 +97,8 @@ def new_game():                                     # main game loop
     y_or_n = input('Do you want to start a new game (Y/N)? ')
     if y_or_n == 'Y' or y_or_n == 'y':
         new_game()
+    else:
+        print('Have a nice day!\nSee you next time!')
 
 input('Welcome to 8-puzzle game, ………\nPress any key to begin >')
 new_game()
