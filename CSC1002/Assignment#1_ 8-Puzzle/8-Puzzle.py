@@ -41,20 +41,16 @@ def find_zero(p_board):                             # function to find where the
     return zero
 
 def judge_direction(p_zero):                        # function to judge valid direction
-    direction_list = ['left', 'right', 'up', 'down']
-    valid_direction = str()
+    valid = 'left, right, up, down'
     if p_zero[1] == 2:                              # take out invalid item from the list
-        del direction_list[0]
+        valid = valid.replace('left, ','')
     elif p_zero[1] == 0:
-        del direction_list[1]
+        valid = valid.replace('right, ','')
     if p_zero[0] == 2:
-        del direction_list[-2]
+        valid = valid.replace('up, ','')
     elif p_zero[0] == 0:
-        del direction_list[-1]
-    for i in range(len(direction_list)-1):
-        valid_direction += direction_list[i] + ', '
-    valid_direction += direction_list[len(direction_list)-1]
-    return valid_direction
+        valid = valid.replace(', down','')
+    return valid
 
 def operate(p_board, p_valid_direction, p_zero):    # function to move a number
     while True:
@@ -98,7 +94,7 @@ def new_game():                                     # main game loop
     if y_or_n == 'Y' or y_or_n == 'y':
         new_game()
     else:
-        print('Have a nice day!\nSee you next time!')
+        print('\nHave a nice day!\nSee you next time!')
 
 input('Welcome to 8-puzzle game, ………\nPress any key to begin >')
 new_game()
