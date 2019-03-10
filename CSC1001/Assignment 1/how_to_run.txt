@@ -1,0 +1,24 @@
+q1.py:
+Firstly, enter final account value.
+Then enter annual interest rate in percent.
+Finally, enter the number of years.
+The program will display the initial deposit amount.
+
+q2.py:
+Input any integer. Then press ENTER.
+
+q3.py:
+Input any number (integer or float), and press ENTER.
+
+q4.py:
+Input any integer larger than zero, and press ENTER.
+Then the program will display the table.
+
+q5.py:
+Input any integer larger than two (no prime number smaller than two), and press ENTER.
+
+q6.py:
+Firstly, input the function type (sin, cos, tan).
+Next input two end points "a" and "b" of the interval.
+Finally, enter the number of sub-intervals.
+Then the program will display the numerical integration.
