@@ -5,6 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Bokeh App",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": false,
+            "pythonPath": "${config:python.pythonPath}",
+            "module": "bokeh",
+            "cwd": "${workspaceFolder}",
+            "args": [ "serve", "--show", "${file}"],
+            "console": "integratedTerminal",
+            "env": {},
+            "envFile": "${workspaceFolder}/.env",
+            // "debugOptions": [ "RedirectOutput" ]
+        },
+        {
             "name": "Python: Current File (Integrated Terminal)",
             "type": "python",
             "request": "launch",
