@@ -83,7 +83,6 @@ def deptOnChange(attr, old, new):
     elif btnGroupDept.active == 2:
         g_dept_name = "%{}".format(new)
 
-
 def optionOnClick(idx):
     global g_option_label
     if idx == 0: g_option_label = 'and'
@@ -139,7 +138,7 @@ columns = [
 table = wd.DataTable(
     source=ColumnDataSource(),
     columns=columns,
-    width=800
+    width=1000
 )
 
 paragraph = wd.Paragraph(text='option')
@@ -194,13 +193,17 @@ page1 = wd.Panel(child=page_info, title='Course Info')
 page2 = wd.Panel(child=page_sta, title='Statistics')
 tabs = wd.Tabs(tabs=[page1, page2])
 
+curdoc().add_root(tabs)
+
+table.source.data = select()
+
 btnGroupLetters.on_click(letterOnClick)
+
 btnGroupTitle.on_click(titleOnClick)
 btnGroupDept.on_click(deptOnClick)
 title_input.on_change('value', titleOnChange)
 dept_input.on_change('value', deptOnChange)
 optionGroup.on_click(optionOnClick)
 refresh.on_click(refreshOnClick)
-selectDept.on_change('value', showPlot)
 
-curdoc().add_root(tabs)
+selectDept.on_change('value', showPlot)
