@@ -1,15 +1,18 @@
-from bokeh.io import show, curdoc
+from bokeh.io import curdoc
 from bokeh.models import widgets as wd, ColumnDataSource
 from bokeh.layouts import widgetbox as wb, layout
 from bokeh.core.properties import value
 from bokeh.plotting import figure
-from functools import partial
 import string
 import pymssql
 
 g_title = str()
 g_dept_name = str()
 g_option_label = 'or'
+
+'''----------
+| Functions |
+----------'''
 
 def connectSQLServer():    # function to connect SQL server
 
@@ -28,7 +31,8 @@ def connectSQLServer():    # function to connect SQL server
         print(e)
         quit()
 
-def select(tsql="select * from lgu.course order by dept_name"):
+def select(    # function to pass required data to the table (pass all by default)
+        tsql="select * from lgu.course order by dept_name"):
     global table
     data = {}
     with sqlConn.cursor(as_dict=True) as cursor:
@@ -41,13 +45,13 @@ def select(tsql="select * from lgu.course order by dept_name"):
         data['instructor'] = [row['instructor'] for row in rows]
     return data
 
-def letterOnClick(idx):
+def letterOnClick(idx):    # pass data to table when click on a letter
     tsql = "select * from lgu.course \
             where title like \'{}%\' \
             order by dept_name".format(list(string.ascii_uppercase)[idx])
     table.source.data = select(tsql)
 
-def titleOnClick(idx):
+def titleOnClick(idx):    # get "title" handler for refreshOnClick()
     global g_title
     if idx == 0:
         g_title = "{}%".format(title_input.value)
@@ -56,7 +60,7 @@ def titleOnClick(idx):
     elif idx == 2:
         g_title = "%{}".format(title_input.value)
 
-def deptOnClick(idx):
+def deptOnClick(idx):    # get "department name" handler for refreshOnClick()
     global g_dept_name
     if idx == 0:
         g_dept_name = "{}%".format(dept_input.value)
@@ -65,7 +69,7 @@ def deptOnClick(idx):
     else:
         g_dept_name = "%{}".format(dept_input.value)
 
-def titleOnChange(attr, old, new):
+def titleOnChange(attr, old, new):    # get "title" handler for refreshOnClick()
     global g_title
     if btnGroupTitle.active == 0:
         g_title = "{}%".format(new)
@@ -74,7 +78,7 @@ def titleOnChange(attr, old, new):
     elif btnGroupTitle.active == 2:
         g_title = "%{}".format(new)
 
-def deptOnChange(attr, old, new):
+def deptOnChange(attr, old, new):    # get "department name" handler for refreshOnClick()
     global g_dept_name
     if btnGroupDept.active == 0:
         g_dept_name = "{}%".format(new)
@@ -83,12 +87,12 @@ def deptOnChange(attr, old, new):
     elif btnGroupDept.active == 2:
         g_dept_name = "%{}".format(new)
 
-def optionOnClick(idx):
+def optionOnClick(idx):    # get "option" handler forrefreshOnClick()
     global g_option_label
     if idx == 0: g_option_label = 'and'
     elif idx == 1: g_option_label = 'or'
 
-def refreshOnClick():
+def refreshOnClick():    # refresh data and show the table
     global g_title, g_dept_name, g_option_label
     tsql = "select * from lgu.course \
             where title like \'{}\' {} dept_name like \'{}\' \
@@ -123,6 +127,10 @@ def dept_list():    # function to get options of the dept selection on tab_2
         for row in rows:
             l.append(row['dept_name'])
     return l
+
+'''----------
+|    GUI    |
+----------'''
 
 sqlConn = connectSQLServer()
 
@@ -194,6 +202,10 @@ page2 = wd.Panel(child=page_sta, title='Statistics')
 tabs = wd.Tabs(tabs=[page1, page2])
 
 curdoc().add_root(tabs)
+
+'''----------
+| Main Part |
+----------'''
 
 table.source.data = select()
 
