@@ -7,7 +7,9 @@ from functools import partial
 import string
 import pymssql
 
-sqlConn = None
+g_title = str()
+g_dept_name = str()
+g_option_label = 'or'
 
 def connectSQLServer():    # function to connect SQL server
 
@@ -37,7 +39,6 @@ def select(tsql="select * from lgu.course order by dept_name"):
         data['dept'] = [row['dept_name'] for row in rows]
         data['credit'] = [row['credits'] for row in rows]
         data['instructor'] = [row['instructor'] for row in rows]
-    print(data)
     return data
 
 def letterOnClick(idx):
@@ -47,39 +48,56 @@ def letterOnClick(idx):
     table.source.data = select(tsql)
 
 def titleOnClick(idx):
+    global g_title
     if idx == 0:
-        tsql = "select * from lgu.course \
-                where title like \'{}%\' \
-                order by dept_name".format(
-                    title_input.value
-                )
+        g_title = "{}%".format(title_input.value)
     elif idx == 1:
-        tsql = "select * from lgu.course \
-                where title like \'%{}%\' \
-                order by dept_name".format(
-                    title_input.value
-                )
-    else:
-        tsql = "select * from lgu.course \
-                where title like \'%{}\' \
-                order by dept_name".format(
-                    title_input.value
-                )
-    table.source.data = select(tsql)
+        g_title = "%{}%".format(title_input.value)
+    elif idx == 2:
+        g_title = "%{}".format(title_input.value)
 
 def deptOnClick(idx):
+    global g_dept_name
     if idx == 0:
-        tsql = "select * from lgu.course \
-                where dept_name like \'{}%\'\
-                order by dept_name".format(dept_input.value)
+        g_dept_name = "{}%".format(dept_input.value)
     elif idx == 1:
-        tsql = "select * from lgu.course \
-                where dept_name like \'%{}%\' \
-                order by dept_name".format(dept_input.value)
+        g_dept_name = "%{}%".format(dept_input.value)
     else:
-        tsql = "select * from lgu.course \
-                where dept_name like \'%{}\' \
-                order by dept_name".format(dept_input.value)
+        g_dept_name = "%{}".format(dept_input.value)
+
+def titleOnChange(attr, old, new):
+    global g_title
+    if btnGroupTitle.active == 0:
+        g_title = "{}%".format(new)
+    elif btnGroupTitle.active == 1:
+        g_title = "%{}%".format(new)
+    elif btnGroupTitle.active == 2:
+        g_title = "%{}".format(new)
+
+def deptOnChange(attr, old, new):
+    global g_dept_name
+    if btnGroupDept.active == 0:
+        g_dept_name = "{}%".format(new)
+    elif btnGroupDept.active == 1:
+        g_dept_name = "%{}%".format(new)
+    elif btnGroupDept.active == 2:
+        g_dept_name = "%{}".format(new)
+
+
+def optionOnClick(idx):
+    global g_option_label
+    if idx == 0: g_option_label = 'and'
+    elif idx == 1: g_option_label = 'or'
+
+def refreshOnClick():
+    global g_title, g_dept_name, g_option_label
+    tsql = "select * from lgu.course \
+            where title like \'{}\' {} dept_name like \'{}\' \
+            order by dept_name".format(
+                g_title,
+                g_option_label,
+                g_dept_name
+            )
     table.source.data = select(tsql)
 
 def showPlot(attr, old, new):    # function to update plot when dept changes
@@ -98,15 +116,13 @@ def showPlot(attr, old, new):    # function to update plot when dept changes
     source.data = data
     
 def dept_list():    # function to get options of the dept selection on tab_2
-    tsql = "select dept_name from lgu.student order by dept_name"
+    tsql = "select dept_name from lgu.student group by dept_name order by dept_name"
     with sqlConn.cursor(as_dict=True) as cursor:
         cursor.execute(tsql)
         rows = cursor.fetchall()
         l = []
         for row in rows:
             l.append(row['dept_name'])
-        l = list(set(l))
-    l.sort()
     return l
 
 sqlConn = connectSQLServer()
@@ -127,7 +143,7 @@ table = wd.DataTable(
 )
 
 paragraph = wd.Paragraph(text='option')
-optionGroup = wd.RadioGroup(labels=['and', 'or'], active=0, width=100, inline=True)
+optionGroup = wd.RadioGroup(labels=['and', 'or'], active=1, width=100, inline=True)
 btnGroupLetters = wd.RadioButtonGroup(labels=list(string.ascii_uppercase), active=-1)
 title_input = wd.TextInput(title='Title:', value='', placeholder='contains....')
 dept_input = wd.TextInput(title='Department:', value='', placeholder='contains....')
@@ -179,8 +195,12 @@ page2 = wd.Panel(child=page_sta, title='Statistics')
 tabs = wd.Tabs(tabs=[page1, page2])
 
 btnGroupLetters.on_click(letterOnClick)
-# btnGroupTitle.on_click(titleOnClick)
-# btnGroupDept.on_click(deptOnClick)
+btnGroupTitle.on_click(titleOnClick)
+btnGroupDept.on_click(deptOnClick)
+title_input.on_change('value', titleOnChange)
+dept_input.on_change('value', deptOnChange)
+optionGroup.on_click(optionOnClick)
+refresh.on_click(refreshOnClick)
 selectDept.on_change('value', showPlot)
 
 curdoc().add_root(tabs)
