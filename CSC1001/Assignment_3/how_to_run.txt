@@ -1,0 +1,83 @@
+q1:
+run python file in terminal directly
+
+output sample:
+
+Please enter the name of the flower:
+> new_flower
+Please enter the number of petals:
+> 6
+Please enter the price of the flower:
+> 27/4
+The name of the flower is new_flower
+The number of petals is 6
+The price of the flower is 6.75
+
+
+
+q2:
+run python file in terminal directly
+
+output sample:
+
+Please enter a polynomial with one unkown:
+> 2*x^3+3*x^2-5*x+1
+
+The first derivative with respect to x is:
+6*x^2+6*x-5
+
+
+
+q3:
+run python file in terminal directly
+
+output sample:
+
+Please enter the length of the river:
+> 30
+Please enter the number of bears:
+> 4
+Please enter the number of fishes:
+> 5
+Please enter the number of steps you want to simulate:
+> 20
+| B         F   F       B       F   F         B     F       B |
+
+| B       F         F         B   F             B   F       B |
+
+| B F         F   F F       B   F             B   F       B   |
+
+|   B       F   F     F   B   F             B   F           B |
+
+| F B         F F     F   B F             B             F   B |
+
+| B         F F     F   B         F     B             F   B   |
+
+| B       F F   F F F B               B         F   F   B     |
+
+| B     F F   F F F B   F         F         B     F F       B |
+
+|     B F   F   F B F       F         F       B F F         B |
+
+|               B   B                   B     B   F         B |
+
+|             B     B                   B   B     F       B   |
+
+|       B       B     B B                 B B       B B B     |
+
+|     B           B B   B B B           B B       B   B B     |
+
+| B B   B   B   B B B B B B B B B B B B B B B B B   B B B B B |
+
+| B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B |
+
+| B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B |
+
+| B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B |
+
+| B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B |
+
+| B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B |
+
+| B B B B B B B B B B B B B B B B B B B B B B B B B B B B B B |
+
